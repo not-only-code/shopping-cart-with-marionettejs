@@ -7,4 +7,4 @@ This article explains how to build a fully functional shopping cart with [Marion
 You can read the [article here](http://codingsomething.wordpress.com/2014/10/08/build-a-shoppping-cart-with-marionettejs/).
 
 
-![Shopping Cart](https://codingsomething.files.wordpress.com/2014/10/shopping-cart1.png?w=272)
+![Shopping Cart](https://codingsomething.files.wordpress.com/2014/10/shopping-cart2.png?w=272)

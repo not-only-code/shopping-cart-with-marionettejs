@@ -61,12 +61,6 @@ This collection is listening for **'add:cart'** event so we can keep this cart â
 this.ProductsCollection = Backbone.Collection.extend({
     model: Cart.ProductModel,
     url: 'http://marionetteshoppingcart.apiary-mock.com/products',
-    initialize: function(){
-        var self = this;
-        this.listenTo(App, 'add:cart', function(model){
-            self.create(model, {wait:true});
-        });
-    },
     getSubtotal: function() {
         var subtotal = 0;
         var data = _.map(this.toJSON(), function(item) {

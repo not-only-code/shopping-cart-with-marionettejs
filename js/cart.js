@@ -15,12 +15,6 @@ App.module('Cart', function(Cart, App) {
     this.ProductsCollection = Backbone.Collection.extend({
         model: Cart.ProductModel,
         url: 'http://marionetteshoppingcart.apiary-mock.com/products',
-        initialize: function(){
-            var self = this;
-            this.listenTo(App, 'add:cart', function(model){
-                self.create(model, {wait:true});
-            });
-        },
         getSubtotal: function() {
             var subtotal = 0;
             var data = _.map(this.toJSON(), function(item) {

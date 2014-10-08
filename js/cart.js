@@ -17,7 +17,7 @@ App.module('Cart', function(Cart, App) {
         url: 'http://marionetteshoppingcart.apiary-mock.com/products',
         getSubtotal: function() {
             var subtotal = 0;
-            var data = _.map(this.toJSON(), function(item) {
+            var data = _.each(this.toJSON(), function(item) {
                subtotal += Number(item.quantity * item.price);
             });
             return subtotal;

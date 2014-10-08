@@ -9,12 +9,6 @@ App.module('Cart', function(Cart, App) {
             image: null,
             quantity: 1,
             price: 0
-        },
-        addQuantity: function(quantity) {
-            if (!quantity || !_.isNumber(quantity)) {
-                return;
-            }
-            this.set('quantity', Number(this.get('quantity') + quantity));
         }
     });
 
@@ -27,38 +21,12 @@ App.module('Cart', function(Cart, App) {
                 self.create(model, {wait:true});
             });
         },
-        add: function(models, options) {
-
-            if (!_.isArray(models)) {
-                models = [models];
-            }
-
-            this.each(function(model){
-                _.each(models, function(m){
-                    if (m instanceof Cart.models.Product) {
-                        m = m.toJSON();
-                    }
-                    if (model.id === m.id) {
-                        model.addQuantity(m.quantity);
-                    }
-                });
-            });
-
-            return this.set(models, _.extend({merge: false}, options, {add: true, remove: false}));
-        },
         getSubtotal: function() {
             var subtotal = 0;
             var data = _.map(this.toJSON(), function(item) {
                subtotal += Number(item.quantity * item.price);
             });
             return subtotal;
-        },
-        getQuantity: function() {
-            if (!this.length) {
-                return this.length;
-            }
-            var p = _.pluck(this.toJSON(), 'quantity');
-            return _.reduce(p, function(memo, num){ return memo + num; }, 0);
         }
     });
 
@@ -141,6 +109,7 @@ App.module('Cart', function(Cart, App) {
             this.ui.subtotal.hide();
             if (Boolean(subtotal)) {
                 this.ui.subtotal.html(String(subtotal+' €'));  
+                // this is very dirty.. i know
                 this.ui.subtotal.fadeTo(80, 0.1).fadeTo(80, 1.0).fadeTo(80, 0.1).fadeTo(160, 1.0);
             }
         },

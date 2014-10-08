@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv="content-language" content="ca">
+        <link rel="stylesheet" type="text/css" href="css/main.css" media="screen">
+
+        <title>Build a Shopping Cart with Marionette</title>
+
+        <script id="cart-empty-template" type="text/html">
+            <td class="empty">Your cart is empty.</td>
+        </script>
+        
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.marionette/2.2.1/backbone.marionette.min.js"></script>
+
+        <script id="cart-template" type="text/html">
+            <h3 class="header-3">Your cart <span class="subtotal"></span></h3>
+            <table>
+                <tbody>
+                </tbody>
+            </table>
+            <a href="/go-checkout" class="button action">go checkout</a>
+        </script>
+
+        <script id="cart-product-template" type="text/html">
+            <td class="image">
+                <a href="<%= url %>">
+                    <img src="<%= image  %>" alt="<%= title %>">
+                </a>
+            </td>
+            <td class="description">
+                <a href="<%= url %>">
+                    <p><%= title %></p>
+                    <p class="price"><%= price %> €</p>
+                </a>
+                <a class="delete-button">&nbsp;</a>
+            </td>
+        </script>
+
+    </head>
+    <body>
+        <section id="content" class="product">
+            <div class="wrapper">
+                <aside class="sidebar">
+                    <div id="shopping-cart" class="cart">&nbsp;</div>
+                </aside>
+            </div>
+        </section>
+        <script>
+            var App = new Backbone.Marionette.Application({});
+        </script>
+        <script type="text/javascript" src="./js/cart.js"></script>
+        <script>
+            App.start();
+        </script>
+    </body>
+</html>

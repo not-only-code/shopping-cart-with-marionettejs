@@ -1,0 +1,421 @@
+/**
+ * Build a shopping cart with MarionetteJS
+ * 0.0.1
+ *
+ * 2014 Carlos Sanz Garcia
+ * Distributed under MIT license
+ *
+ * http://codingsomething.wordpress.com/2014/09/13/build-a-shoppping-cart-with-marionettejs
+ */
+/* reset
+-------------------------------------------------------------------- */
+/* http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* global
+-------------------------------------------------------------------- */
+* {
+  outline: none;
+}
+a {
+  color: #3d3d3d;
+  text-decoration: none;
+}
+strong,
+.strong {
+  font-weight: bold;
+}
+.error {
+  color: #d00000;
+}
+a:hover {
+  color: #ffc508;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  min-width: 300px;
+}
+body {
+  font: normal 16px/1.3em 'Georgia', 'Times', 'Serif';
+  color: #3d3d3d;
+  background-color: #EEE;
+}
+p {
+  margin-bottom: 15px;
+}
+p:last-child {
+  margin-bottom: 0;
+}
+
+.button,
+.tag {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  position: relative;
+  font: normal 18px/1em 'Helvetica', 'Arial', 'Sans-serif';
+  background-color: #a2a2a2;
+  border: none;
+  text-align: center;
+  padding: 6px 12px;
+  -webkit-border-radius: 5px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 5px;
+  -moz-background-clip: padding;
+  border-radius: 5px;
+  background-clip: padding-box;
+  color: white;
+  cursor: pointer;
+}
+.button.active,
+.tag.active,
+.button.active:hover,
+.tag.active:hover {
+  background-color: rgba(61, 61, 61, 0.85);
+}
+.button:hover,
+.tag:hover {
+  color: white;
+  background-color: #888888;
+}
+.button:active,
+.tag:active {
+  -webkit-transform: scale(0.98);
+  -moz-transform: scale(0.98);
+  -o-transform: scale(0.98);
+  -ms-transform: scale(0.98);
+  transform: scale(0.98);
+}
+.button.action,
+.tag.action {
+  background-color: #bfd730;
+}
+.button.action:hover,
+.tag.action:hover {
+  color: white;
+  background-color: #b0c726;
+}
+.button.action:active,
+.tag.action:active {
+  background-color: #a5ba24;
+}
+.button.disabled,
+.tag.disabled,
+.button.disabled:hover,
+.tag.disabled:hover,
+.button.disabled:active,
+.tag.disabled:active {
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -o-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  cursor: default;
+  background-color: #eaeaea;
+}
+.tag {
+  padding: 3px 6px;
+  font-size: 0.95em;
+  -webkit-border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 4px;
+  -moz-background-clip: padding;
+  border-radius: 4px;
+  background-clip: padding-box;
+  background-color: #ffc508;
+  color: #3d3d3d;
+}
+.delete-button,
+.more-button {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.delete-button,
+.more-button {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url('../img/close.svg') no-repeat left top;
+  background-size: 20px;
+}
+
+.more-button:hover:after {
+  color: #9db222;
+}
+.delete-button.less:after,
+.more-button.less:after {
+  -webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+.delete-button:hover:after,
+.delete-button.less:hover:after,
+.more-button.less:hover:after {
+  color: orange;
+}
+.more-button.disabled:after,
+.more-button.disabled:hover:after {
+  color: #eaeaea !important;
+}
+
+.delete-button.disabled {
+  opacity: 0.3;
+}
+
+/* Headers
+-------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Helvetica', 'Arial', 'Sans-serif';
+  line-height: 1em;
+}
+
+.header-1 {
+  font-size: 48px;
+}
+
+.header-2 {
+  font-size: 30px;
+}
+.header-3 {
+  font-size: 24px;
+}
+.header-4 {
+  font-size: 21px;
+}
+
+
+/* cart
+-------------------------------------------------------------------- */
+.cart {
+  font-family: 'Helvetica', 'Arial', 'Sans-serif';
+  border: solid 1px #DDD;
+  background-color: white;
+  padding: 10px;
+}
+.cart h3 {
+  padding: 5px;
+  padding-right: 0;
+  border-bottom: solid 1px #eaeaea;
+}
+.cart h3 .subtotal {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  float: right;
+  font-weight: bold;
+  margin-top: 2px;
+  color: #ffc508;
+  font-size: 0.85em;
+}
+.cart .delete-button {
+  font-size: 13px;
+  width: 13px;
+  height: 13px;
+  padding: 6px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  margin-top: -13px;
+  right: -2px;
+}
+.cart .delete-button:after {
+  top: -4px;
+  left: -3px;
+  position: absolute;
+}
+.cart table {
+  width: 100%;
+  font-size: 14px;
+}
+.cart .empty {
+  color: #d00000;
+}
+.cart .remove {
+  -webkit-transform: scale(0.6);
+  -moz-transform: scale(0.6);
+  -o-transform: scale(0.6);
+  -ms-transform: scale(0.6);
+  transform: scale(0.6);
+  opacity: 0;
+  -webkit-transition: all 150ms cubic-bezier(0, 0.5, 0.46, 0.99);
+  -moz-transition: all 150ms cubic-bezier(0, 0.5, 0.46, 0.99);
+  -o-transition: all 150ms cubic-bezier(0, 0.5, 0.46, 0.99);
+  transition: all 150ms cubic-bezier(0, 0.5, 0.46, 0.99);
+}
+.cart td {
+  padding: 8px 0;
+  vertical-align: top;
+  border-bottom: solid 1px #e6e6e6;
+}
+.cart td.image {
+  width: 30%;
+}
+.cart td.image img {
+  display: block;
+  width: 100%;
+}
+.cart td.description {
+  width: auto;
+  position: relative;
+  padding-left: 8px;
+}
+.cart td.description a {
+  display: block;
+}
+.cart td.description p {
+  line-height: 1.2em;
+  margin: 0 12px 8px 0;
+}
+.cart td .price {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 0;
+}
+.cart td.subtotal {
+  padding-right: 13px;
+  text-align: right;
+}
+.cart .button {
+  margin-top: 8px;
+  width: 100%;
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#shopping-cart {
+  margin: 10px auto;
+  width: 250px;
+}

@@ -14,7 +14,7 @@ App.module('Cart', function(Cart, App) {
 
     this.ProductsCollection = Backbone.Collection.extend({
         model: Cart.ProductModel,
-        url: 'http://marionetteshoppingcart.apiary-mock.com/products',
+        url: 'http://private-01286-marionetteshoppingcart.apiary-mock.com/products',
         getSubtotal: function() {
             var subtotal = 0;
             var data = _.each(this.toJSON(), function(item) {
